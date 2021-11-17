@@ -80,7 +80,6 @@ public class Order {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append("Order ID: " + id + "\n");
         str.append("Product, Unit Price, Quantity, Price");
         for (Map.Entry<MenuItem, Integer> entry : orderItems.entrySet()) {
             MenuItem item = entry.getKey();
