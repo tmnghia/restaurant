@@ -46,27 +46,18 @@ public class MenuController {
     }
 
     public void deleteMenuItem() {
-        System.out.println("MenuController.deleteMenuItem()");
         ProductView productView = new ProductView();
         ProductController productController = new ProductController(null, productView);
         productController.deleteProduct();
     }
 
     public void updateMenuItem() {
-        System.out.println("MenuController.updateMenuItem()");
         ProductView productView = new ProductView();
         ProductController productController = new ProductController(null, productView);
         productController.updateProduct();
+    }
 
-        // Product oldProduct = null, newProduct = null;
-        // String name = view.inputMenuItemName();
-        // oldProduct = model.getItem(name);
-
-        // if (oldProduct != null) {
-        //     ProductView productView = new ProductView();
-        //     ProductController productController = new ProductController(null, productView);
-        //     productController.updateItem();
-        // }
-        // return;
+    public void saveMenu() {
+        model.saveMenu();
     }
 }

@@ -29,6 +29,7 @@ public final class App {
             System.out.println("action: " + action);
 
             switch (action) {
+                // Menu Management
                 case 1:
                     int menuAction = -1;
                     Menu menu = Menu.getInstance();
@@ -51,6 +52,7 @@ public final class App {
                                 menuController.updateMenuItem();
                                 break;
                             case 0:
+                                menuController.saveMenu();
                                 break;
 
                             default:
@@ -59,7 +61,10 @@ public final class App {
                     } while (menuAction != 0);
 
                     break;
+
+                // Ordering
                 case 2:
+                    
                     break;
                 case 0:
                     System.out.println("Exiting...");

@@ -16,7 +16,6 @@ public class Menu {
 
     private void loadMenuItems() {
         if (menuItems.isEmpty()) {
-            System.out.println("Menu.loadMenuItems()");
             menuItems = MenuDAO.getInstance().readFromDB();
         }
     }
@@ -56,7 +55,7 @@ public class Menu {
             }
         }
         menuItems.add(item);
-        MenuDAO.getInstance().writeToDB(menuItems);
+        // MenuDAO.getInstance().writeToDB(menuItems);
 
         return true;
     }
@@ -65,7 +64,7 @@ public class Menu {
         for (Product item : menuItems) {
             if (item.getName().equals(name)) {
                 menuItems.remove(item);
-                MenuDAO.getInstance().writeToDB(menuItems);
+                // MenuDAO.getInstance().writeToDB(menuItems);
 
                 return true;
             }
@@ -81,16 +80,10 @@ public class Menu {
             }
         }
         return false;
+    }
 
-        // for (Product menuItem : menuItems) {
-        //     if (menuItem.equals(oldItem)) {
-        //         menuItems.remove(oldItem);
-        //         menuItems.add(newItem);
-        //         MenuDAO.getInstance().writeToDB(menuItems);
-
-        //         return true;
-        //     }
-        // }
-        // return false;
+    public boolean saveMenu() {
+        MenuDAO.getInstance().writeToDB(menuItems);
+        return true;
     }
 }
