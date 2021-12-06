@@ -1,4 +1,7 @@
-package com.example.order;
+package com.example.controllers;
+
+import com.example.models.Order;
+import com.example.views.OrderView;
 
 public class OrderController {
     Order model;

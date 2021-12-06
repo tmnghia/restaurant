@@ -1,15 +1,12 @@
-package com.example.order;
+package com.example.models;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.menu.Menu;
-import com.example.menu.menuitem.MenuItem;
-
 public class Order {
     private String id;
     private double totalPrice = 0;
-    private Map<MenuItem, Integer> orderItems;
+    private Map<Product, Integer> orderItems;
 
     public Order(String id) {
         setId(id);
@@ -20,13 +17,13 @@ public class Order {
         return id;
     }
 
-    public Map<MenuItem, Integer> getOrders() {
+    public Map<Product, Integer> getOrders() {
         return orderItems;
     }
 
     public double getTotalPrice() {
         totalPrice = 0;
-        for (Map.Entry<MenuItem, Integer> entry : orderItems.entrySet()) {
+        for (Map.Entry<Product, Integer> entry : orderItems.entrySet()) {
             totalPrice += (entry.getValue() * entry.getKey().getPrice());
         }
         return totalPrice;
@@ -38,7 +35,7 @@ public class Order {
 
     public boolean addItem(String name, int quantity) {
         Menu menu = Menu.getInstance();
-        MenuItem item = menu.getItem(name);
+        Product item = menu.getItem(name);
         if (item == null) {
             System.err.printf("Not found item with name %s in the menu list\n", name);
             return false;
@@ -56,7 +53,7 @@ public class Order {
 
     public boolean removeItem(String name, int quantity) {
         Menu menu = Menu.getInstance();
-        MenuItem item = menu.getItem(name);
+        Product item = menu.getItem(name);
         if (item == null) {
             System.err.printf("Not found item with name %s in the menu list\n", name);
             return false;
@@ -81,8 +78,8 @@ public class Order {
     public String toString() {
         StringBuilder str = new StringBuilder();
         str.append("Product, Unit Price, Quantity, Price");
-        for (Map.Entry<MenuItem, Integer> entry : orderItems.entrySet()) {
-            MenuItem item = entry.getKey();
+        for (Map.Entry<Product, Integer> entry : orderItems.entrySet()) {
+            Product item = entry.getKey();
             int quantity = (int)entry.getValue();
             str.append("\n");
             str.append(item.getName());

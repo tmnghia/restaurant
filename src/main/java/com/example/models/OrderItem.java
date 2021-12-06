@@ -1,4 +1,4 @@
-package com.example.order;
+package com.example.models;
 
 public class OrderItem {
     private String productName;

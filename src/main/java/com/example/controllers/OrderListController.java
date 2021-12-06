@@ -1,8 +1,11 @@
-package com.example.order;
+package com.example.controllers;
 
 import java.util.ArrayList;
 
 import com.example.common.repository.RepoController;
+import com.example.models.Order;
+import com.example.models.OrderList;
+import com.example.views.OrderListView;
 
 public class OrderListController implements RepoController<ArrayList<Order>, Order> {
 

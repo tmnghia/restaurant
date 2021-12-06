@@ -1,4 +1,4 @@
-package com.example.menu;
+package com.example.dao;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,9 +11,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.example.common.dao.FileDAO;
-import com.example.menu.menuitem.MenuItem;
+import com.example.models.Product;
 
-public class MenuDAO implements FileDAO<ArrayList<MenuItem>> {
+public class MenuDAO implements FileDAO<ArrayList<Product>> {
     private final String MENU_DB = "menu.dat";
     private static MenuDAO instance;
 
@@ -32,7 +32,7 @@ public class MenuDAO implements FileDAO<ArrayList<MenuItem>> {
     }
 
     @Override
-    public void writeToDB(ArrayList<MenuItem> objects) {
+    public void writeToDB(ArrayList<Product> objects) {
         FileOutputStream fos = null;
         ObjectOutput oos = null;
 
@@ -54,15 +54,15 @@ public class MenuDAO implements FileDAO<ArrayList<MenuItem>> {
     }
 
     @Override
-    public ArrayList<MenuItem> readFromDB() {
-        ArrayList<MenuItem> menuItems = new ArrayList<>();
+    public ArrayList<Product> readFromDB() {
+        ArrayList<Product> menuItems = new ArrayList<>();
         FileInputStream fis = null;
         ObjectInput ois = null;
 
         try {
             fis = new FileInputStream(MENU_DB);
             ois = new ObjectInputStream(fis);
-            menuItems = (ArrayList<MenuItem>) ois.readObject();
+            menuItems = (ArrayList<Product>) ois.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Nothing to read");
         } catch (Exception e) {

@@ -1,17 +1,15 @@
-package com.example.menu.menuitem;
+package com.example.models;
 
 import java.io.Serializable;
 
-public abstract class MenuItem implements Serializable {
+public abstract class Product implements Serializable {
     private String name;
     private String description;
-    private String image;
     private double price;
 
-    public MenuItem(String name, String description, String image, double price) {
+    public Product(String name, String description, double price) {
         this.setName(name);
         this.setDescription(description);
-        this.setImage(image);
         this.setPrice(price);
     }
 
@@ -29,14 +27,6 @@ public abstract class MenuItem implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public double getPrice() {
@@ -63,7 +53,7 @@ public abstract class MenuItem implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MenuItem other = (MenuItem) obj;
+        Product other = (Product) obj;
         if (name == null) {
             if (other.name != null)
                 return false;
@@ -74,10 +64,8 @@ public abstract class MenuItem implements Serializable {
 
     @Override
     public String toString() {
-        return
-        "Name: " + name + "\n" +
-        "Description: " + description + "\n"  +
-        "Image: " + image + "\n" +
-        "Price: " + price;
+        return "Name: " + name + "\n" +
+                "Description: " + description + "\n" +
+                "Price: " + price;
     }
 }
