@@ -17,7 +17,7 @@ public class Order {
         return id;
     }
 
-    public Map<Product, Integer> getOrders() {
+    public Map<Product, Integer> getOrderItems() {
         return orderItems;
     }
 
@@ -33,13 +33,15 @@ public class Order {
         this.id = id;
     }
 
-    public boolean addItem(String name, int quantity) {
+    public boolean addItem(OrderItem orderItem) {
         Menu menu = Menu.getInstance();
-        Product item = menu.getItem(name);
+        Product item = menu.getItem(orderItem.getProductName());
+        
         if (item == null) {
-            System.err.printf("Not found item with name %s in the menu list\n", name);
+            System.err.println("Not found item with name" + orderItem.getProductName() + "in the menu list");
             return false;
         }
+        int quantity = orderItem.getQuantity();
 
         if (orderItems.get(item) == null) {
             orderItems.put(item, quantity);

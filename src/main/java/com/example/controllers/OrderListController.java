@@ -2,12 +2,12 @@ package com.example.controllers;
 
 import java.util.ArrayList;
 
-import com.example.common.repository.RepoController;
 import com.example.models.Order;
 import com.example.models.OrderList;
 import com.example.views.OrderListView;
+import com.example.views.OrderView;
 
-public class OrderListController implements RepoController<ArrayList<Order>, Order> {
+public class OrderListController {
 
     OrderList model;
     OrderListView view;
@@ -17,33 +17,46 @@ public class OrderListController implements RepoController<ArrayList<Order>, Ord
         this.view = view;
     }
 
-    @Override
-    public boolean addItem(Order item) {
-        return model.addItem(item);
+    public boolean addOrder(Order order) {
+        if (order == null)
+            return false;
+
+        return model.addOrder(order);
     }
 
-    @Override
-    public boolean removeItem(Order item) {
-        return model.removeItem(item);
+    public boolean removeOrder(Order order) {
+        if (order == null)
+            return false;
+
+        return model.removeOrder(order);
     }
 
-    @Override
-    public boolean updateItem(Order oldItem, Order newItem) {
-        return model.updateItem(oldItem, newItem);
+    public boolean updateOrder(Order oldItem, Order newItem) {
+        return model.updateOrder(oldItem, newItem);
     }
 
-    @Override
-    public Order getItem(String id) {
-        return model.getItem(id);
+    public Order getOrder() {
+        Order order = null;
+        String orderID = view.getOrderID();
+        order = model.getOrder(orderID);
+        if (order == null) {
+            order = new Order(orderID);
+            model.addOrder(order);
+        }
+
+        return order;
     }
 
-    @Override
-    public ArrayList<Order> getItems() {
-        return model.getItems();
+    public int getOrderListAction() {
+        return view.getAction();
     }
 
-    @Override
-    public void showAllItems() {
-        view.showRepo(model.getItems());
+    public void showOrders() {
+        System.out.println("OrderListController.showOrders()");
+        ArrayList<Order> orders = model.getOrders();
+        for (Order order : orders) {
+            OrderController orderController = new OrderController(order, new OrderView());
+            orderController.showOrder();
+        }
     }
 }

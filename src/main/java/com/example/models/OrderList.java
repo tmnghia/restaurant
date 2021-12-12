@@ -2,36 +2,35 @@ package com.example.models;
 
 import java.util.ArrayList;
 
-import com.example.common.repository.Repo;
-
-public class OrderList implements Repo<Order> {
+public class OrderList {
 
     private static OrderList instance = null;
-    private ArrayList<Order> orderList = null;
+    private ArrayList<Order> orders = null;
 
     private OrderList() {
-        orderList = new ArrayList<>();
+        orders = new ArrayList<>();
     }
 
     public static OrderList getInstance() {
-        if (instance == null) {
+        OrderList i = instance;
+        if (i == null) {
             synchronized (OrderList.class) {
-                if (instance == null) {
-                    instance = new OrderList();
+                i = instance;
+                if (i == null) {
+                    i = new OrderList();
+                    instance = i;
                 }
             }
         }
         return instance;
     }
 
-    @Override
-    public ArrayList<Order> getItems() {
-        return orderList;
+    public ArrayList<Order> getOrders() {
+        return orders;
     }
 
-    @Override
-    public Order getItem(String id) {
-        for (Order order : orderList) {
+    public Order getOrder(String id) {
+        for (Order order : orders) {
             if (order.getId().equals(id)) {
                 return order;
             }
@@ -39,21 +38,19 @@ public class OrderList implements Repo<Order> {
         return null;
     }
 
-    @Override
-    public boolean addItem(Order item) {
-        for (Order order : orderList) {
+    public boolean addOrder(Order item) {
+        for (Order order : orders) {
             if (order.equals(item)) {
                 return false;
             }
         }
-        orderList.add(item);
+        orders.add(item);
         return true;
     }
 
-    @Override
-    public boolean removeItem(Order item) {
+    public boolean removeOrder(Order item) {
         try {
-            if (orderList.removeIf(order -> item.equals(item))) {
+            if (orders.removeIf(order -> order.equals(item))) {
                 System.out.println("Removed item: " + item);
             }
         } catch (NullPointerException e) {
@@ -66,11 +63,10 @@ public class OrderList implements Repo<Order> {
         return true;
     }
 
-    @Override
-    public boolean updateItem(Order oldItem, Order newItem) {
+    public boolean updateOrder(Order oldItem, Order newItem) {
         try {
-            if (orderList.removeIf(item -> item.equals(oldItem))) {
-                orderList.add(newItem);
+            if (orders.removeIf(item -> item.equals(oldItem))) {
+                orders.add(newItem);
             }
         } catch (NullPointerException e) {
             return false;
@@ -81,5 +77,4 @@ public class OrderList implements Repo<Order> {
 
         return true;
     }
-
 }

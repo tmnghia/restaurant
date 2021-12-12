@@ -2,9 +2,15 @@ package com.example;
 
 import com.example.controllers.MainController;
 import com.example.controllers.MenuController;
+import com.example.controllers.OrderController;
+import com.example.controllers.OrderListController;
 import com.example.models.Menu;
+import com.example.models.Order;
+import com.example.models.OrderList;
 import com.example.views.MainView;
 import com.example.views.MenuView;
+import com.example.views.OrderListView;
+import com.example.views.OrderView;
 
 /**
  * Hello world!
@@ -64,7 +70,80 @@ public final class App {
 
                 // Ordering
                 case 2:
-                    
+                    int orderAction = -1;
+                    int orderListAction = -1;
+
+                    OrderList orderList = OrderList.getInstance();
+                    OrderListView orderListView = new OrderListView();
+                    OrderListController orderListController = new OrderListController(orderList, orderListView);
+
+                    orderListAction = orderListController.getOrderListAction();
+                    Order order = null;
+
+                    switch (orderListAction) {
+                        case 1:
+                            order = orderListController.getOrder();
+                            orderListController.addOrder(order);
+                            OrderController orderController = new OrderController(order, new OrderView());
+                            do {
+                                orderAction = orderController.getOrderAction();
+                                switch (orderAction) {
+                                    case 1:
+                                        orderController.addOrderItem();
+                                        break;
+                                    case 2:
+                                        orderController.removeOrderItem();
+                                        break;
+                                    case 3:
+                                        orderController.showOrder();
+                                        break;
+                                    case 4:
+                                        orderController.billing();
+                                        break;
+                                    case 0:
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            } while (orderAction != 0);
+                            break;
+                        case 2:
+                            order = orderListController.getOrder();
+                            orderListController.removeOrder(order);
+                            break;
+                        case 3:
+                            orderListController.showOrders();
+                            break;
+                        case 0:
+                            break;
+                        default:
+                            break;
+                    }
+
+                    // do {
+                    // orderAction = orderController.getOrderAction();
+                    // switch (orderAction) {
+                    // case 1:
+                    // orderController.showOrder();
+                    // break;
+                    // case 2:
+                    // orderController.addOrderItem();
+                    // break;
+                    // case 3:
+                    // orderController.removeOrderItem();
+                    // break;
+                    // case 4:
+                    // orderController.billing();
+                    // break;
+                    // case 0:
+                    // break;
+
+                    // default:
+                    // break;
+                    // }
+                    // } while (orderAction != 0);
+
                     break;
                 case 0:
                     System.out.println("Exiting...");
