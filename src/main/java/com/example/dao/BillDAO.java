@@ -45,7 +45,6 @@ public class BillDAO implements FileDAO<byte[]> {
 
     @Override
     public byte[] readFromDB() {
-        // TODO Auto-generated method stub
-        return null;
+        return new byte[0];
     }
 }

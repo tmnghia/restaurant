@@ -58,7 +58,8 @@ public class Order implements Serializable {
         Menu menu = Menu.getInstance();
         Product item = menu.getItem(name);
         if (item == null) {
-            System.err.printf("Not found item with name %s in the menu list\n", name);
+            System.err.printf("Not found item with name %s in the menu list", name);
+            System.out.println();
             return false;
         }
 
