@@ -11,20 +11,21 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.example.common.dao.FileDAO;
-import com.example.models.Product;
+import com.example.models.Order;
 
-public class MenuDAO implements FileDAO<ArrayList<Product>> {
-    private final String MENU_DB = "menu.dat";
-    private static MenuDAO instance;
+public class OrderDAO implements FileDAO<ArrayList<Order>> {
 
-    private MenuDAO() {
-    }
+    private static final String ORDER_DB = "order.dat";
+    private static OrderDAO instance;
 
-    public static MenuDAO getInstance() {
-        if (instance == null) {
-            synchronized (MenuDAO.class) {
-                if (instance == null) {
-                    instance = new MenuDAO();
+    public static OrderDAO getInstance() {
+        OrderDAO i = instance;
+        if (i == null) {
+            synchronized (OrderDAO.class) {
+                i = instance;
+                if (i == null) {
+                    i = new OrderDAO();
+                    instance = i;
                 }
             }
         }
@@ -32,12 +33,13 @@ public class MenuDAO implements FileDAO<ArrayList<Product>> {
     }
 
     @Override
-    public void writeToDB(ArrayList<Product> objects) {
+    public void writeToDB(ArrayList<Order> objects) {
+        System.out.println("OrderDAO.writeToDB()");
         FileOutputStream fos = null;
         ObjectOutput oos = null;
 
         try {
-            fos = new FileOutputStream(MENU_DB);
+            fos = new FileOutputStream(ORDER_DB);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(objects);
         } catch (Exception e) {
@@ -50,19 +52,27 @@ public class MenuDAO implements FileDAO<ArrayList<Product>> {
                     e.printStackTrace();
                 }
             }
+
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     @Override
-    public ArrayList<Product> readFromDB() {
-        ArrayList<Product> menuItems = new ArrayList<>();
+    public ArrayList<Order> readFromDB() {
+        ArrayList<Order> orderItems = new ArrayList<>();
         FileInputStream fis = null;
         ObjectInput ois = null;
 
         try {
-            fis = new FileInputStream(MENU_DB);
+            fis = new FileInputStream(ORDER_DB);
             ois = new ObjectInputStream(fis);
-            menuItems = (ArrayList<Product>) ois.readObject();
+            orderItems = (ArrayList<Order>) ois.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Nothing to read");
         } catch (Exception e) {
@@ -85,6 +95,7 @@ public class MenuDAO implements FileDAO<ArrayList<Product>> {
             }
         }
 
-        return menuItems;
+        return orderItems;
     }
+
 }

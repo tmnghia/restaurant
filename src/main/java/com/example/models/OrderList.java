@@ -2,6 +2,8 @@ package com.example.models;
 
 import java.util.ArrayList;
 
+import com.example.dao.OrderDAO;
+
 public class OrderList {
 
     private static OrderList instance = null;
@@ -9,6 +11,13 @@ public class OrderList {
 
     private OrderList() {
         orders = new ArrayList<>();
+        loadOrderItems();
+    }
+
+    private void loadOrderItems() {
+        if (orders.isEmpty()) {
+            orders = OrderDAO.getInstance().readFromDB();
+        }
     }
 
     public static OrderList getInstance() {
@@ -76,5 +85,10 @@ public class OrderList {
         }
 
         return true;
+    }
+
+    public void saveOrders() {
+        System.out.println("OrderList.saveOrders()");
+        OrderDAO.getInstance().writeToDB(orders);
     }
 }

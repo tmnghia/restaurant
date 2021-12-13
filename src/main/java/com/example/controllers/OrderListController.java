@@ -59,4 +59,8 @@ public class OrderListController {
             orderController.showOrder();
         }
     }
+
+    public void saveOrders() {
+        model.saveOrders();
+    }
 }

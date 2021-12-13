@@ -20,16 +20,6 @@ public class OrderListView {
         return UserIO.getInstance().getStringFromUser();
     }
 
-    // public int getOrderAction() {
-    // System.out.println("Ordering");
-    // System.out.println("1. Show order");
-    // System.out.println("2. Add order item.");
-    // System.out.println("3. Remove Order item.");
-    // System.out.println("0. Save and back.");
-    // System.out.print("Enter your choice: ");
-    // return UserIO.getInstance().getIntegerFromUser();
-    // }
-
     public void showOrder(Order order) {
         if (order == null)
             return;

@@ -77,73 +77,56 @@ public final class App {
                     OrderListView orderListView = new OrderListView();
                     OrderListController orderListController = new OrderListController(orderList, orderListView);
 
-                    orderListAction = orderListController.getOrderListAction();
-                    Order order = null;
+                    do {
+                        orderListAction = orderListController.getOrderListAction();
+                        Order order = null;
 
-                    switch (orderListAction) {
-                        case 1:
-                            order = orderListController.getOrder();
-                            orderListController.addOrder(order);
-                            OrderController orderController = new OrderController(order, new OrderView());
-                            do {
-                                orderAction = orderController.getOrderAction();
-                                switch (orderAction) {
-                                    case 1:
-                                        orderController.addOrderItem();
-                                        break;
-                                    case 2:
-                                        orderController.removeOrderItem();
-                                        break;
-                                    case 3:
-                                        orderController.showOrder();
-                                        break;
-                                    case 4:
-                                        orderController.billing();
-                                        break;
-                                    case 0:
-                                        break;
+                        switch (orderListAction) {
+                            // Add or update the order
+                            case 1:
+                                order = orderListController.getOrder();
+                                orderListController.addOrder(order);
+                                OrderController orderController = new OrderController(order, new OrderView());
+                                do {
+                                    orderAction = orderController.getOrderAction();
+                                    switch (orderAction) {
+                                        case 1:
+                                            orderController.addOrderItem();
+                                            break;
+                                        case 2:
+                                            orderController.removeOrderItem();
+                                            break;
+                                        case 3:
+                                            orderController.showOrder();
+                                            break;
+                                        case 4:
+                                            orderController.billing();
+                                            break;
+                                        case 0:
+                                            break;
 
-                                    default:
-                                        break;
-                                }
-                            } while (orderAction != 0);
-                            break;
-                        case 2:
-                            order = orderListController.getOrder();
-                            orderListController.removeOrder(order);
-                            break;
-                        case 3:
-                            orderListController.showOrders();
-                            break;
-                        case 0:
-                            break;
-                        default:
-                            break;
-                    }
-
-                    // do {
-                    // orderAction = orderController.getOrderAction();
-                    // switch (orderAction) {
-                    // case 1:
-                    // orderController.showOrder();
-                    // break;
-                    // case 2:
-                    // orderController.addOrderItem();
-                    // break;
-                    // case 3:
-                    // orderController.removeOrderItem();
-                    // break;
-                    // case 4:
-                    // orderController.billing();
-                    // break;
-                    // case 0:
-                    // break;
-
-                    // default:
-                    // break;
-                    // }
-                    // } while (orderAction != 0);
-
+                                        default:
+                                            break;
+                                    }
+                                } while (orderAction != 0);
+                                break;
+                            // Delete the order
+                            case 2:
+                                order = orderListController.getOrder();
+                                orderListController.removeOrder(order);
+                                break;
+                            // Show all orders
+                            case 3:
+                                orderListController.showOrders();
+                                break;
+                            // Save order list then exit
+                            case 0:
+                                orderListController.saveOrders();
+                                break;
+                            default:
+                                break;
+                        }
+                    } while (orderListAction != 0);
                     break;
                 case 0:
                     System.out.println("Exiting...");

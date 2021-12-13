@@ -1,9 +1,10 @@
 package com.example.models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Order {
+public class Order implements Serializable {
     private String id;
     private double totalPrice = 0;
     private Map<Product, Integer> orderItems;
